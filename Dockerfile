@@ -79,8 +79,7 @@ COPY --from=frontend --chown=django:django /code/static /code/static
 EXPOSE 8000
 
 # Default to gunicorn; compose overrides this for the web/celery services.
-CMD ["gunicorn", "config.wsgi:application", \
-     "--bind", "0.0.0.0:8000", \
-     "--workers", "3", \
-     "--access-logfile", "-", \
-     "--error-logfile", "-"]
+COPY --chown=django:django entrypoint.sh /code/entrypoint.sh
+RUN chmod +x /code/entrypoint.sh
+
+CMD ["/code/entrypoint.sh"]
