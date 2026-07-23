@@ -7,10 +7,10 @@ from . import views
 app_name = "web"
 urlpatterns = [
     path("", views.home, name="home"),
+    path("dashboard/", views.user_dashboard, name="user_dashboard"),
+    path("admin-dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("terms/", TemplateView.as_view(template_name="web/terms.html"), name="terms"),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots.txt"),
-    # these views are just for testing error pages
-    # actual error handling is handled by Django: https://docs.djangoproject.com/en/stable/ref/views/#error-views
     path("400/", default_views.bad_request, kwargs={"exception": Exception("Bad Request!")}, name="400"),
     path("403/", default_views.permission_denied, kwargs={"exception": Exception("Permission Denied")}, name="403"),
     path("404/", default_views.page_not_found, kwargs={"exception": Exception("Page not Found")}, name="404"),

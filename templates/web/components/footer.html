@@ -1,9 +1,20 @@
 {% load i18n %}
-<footer class="p-6 mt-16 border-t footer footer-center border-base-300 text-base-content/60">
-  <div x-data>
-    <p>{{ project_meta.NAME }} &mdash; {% translate "Copyright" %} <span x-text="new Date().getFullYear()">2024</span></p>
-    <p class="text-sm">
-      {% blocktranslate trimmed %}adapted from 🦄 Built with <a class="link link-hover" href="https://www.saaspegasus.com/" target="_blank">SaaS Pegasus</a> by chris achinga{% endblocktranslate %}
-    </p>
+
+<footer class="mt-20 bg-white dark:bg-slate-800 border-t border-slate-200/80 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <a href="{% url 'web:home' %}" class="flex items-center gap-2 text-lg font-bold text-emerald-600 dark:text-emerald-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A9 9 0 006 18c1.119 0 2.19-.22 3.182-.635m0 0A8.966 8.966 8.966 0 0112 21a8.966 8.966 8.966 0 01-8.182-5.635M12 6.042A8.967 8.967 0 0112 3c1.052 0 2.062.18 3 .512v14.25A9 9 0 0018 18c-1.119 0-2.19-.22 3.182-.635m0 0A8.966 8.966 8.966 0 0012 21" /></svg>
+        RecipeHub
+      </a>
+      <div class="text-center md:text-right">
+        <p class="text-slate-500 dark:text-slate-400 text-sm">
+          &copy; <span>{{ now.year }}</span> RecipeHub. All rights reserved.
+        </p>
+        <p class="text-slate-400 dark:text-slate-500 text-sm mt-1.5">
+          Share recipes. Discover flavors. Connect with food lovers.
+        </p>
+      </div>
+    </div>
   </div>
 </footer>

@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
 # Put your project-specific apps here
 PROJECT_APPS = [
     "apps.users.apps.UserConfig",
+    "apps.recipes",
     "apps.web",
 ]
 
@@ -385,14 +386,13 @@ SCHEDULED_TASKS: dict[str, Any] = {
 
 # replace any values below with specifics for your project
 PROJECT_METADATA = {
-    "NAME": gettext_lazy("django-template"),
+    "NAME": gettext_lazy("RecipeHub"),
     "URL": "http://localhost:8000",
-    "DESCRIPTION": gettext_lazy("my django template"),  # noqa: E501
-    "IMAGE": "https://upload.wikimedia.org/wikipedia/commons/2/20/PEO-pegasus_black.svg",
-    "KEYWORDS": "SaaS, django",
-    "CONTACT_EMAIL": "achinga.chris@gmail.com",
+    "DESCRIPTION": gettext_lazy("A platform to share and discover recipes"),
+    "IMAGE": "",
+    "KEYWORDS": "recipes, food, cooking, community",
+    "CONTACT_EMAIL": "your-email@example.com",
 }
-
 # set this to True in production to have URLs generated with https instead of http
 USE_HTTPS_IN_ABSOLUTE_URLS = env.bool("USE_HTTPS_IN_ABSOLUTE_URLS", default=False)
 

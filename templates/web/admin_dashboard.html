@@ -1,0 +1,130 @@
+{% extends "web/app/app_base.html" %}
+
+{% block app %}
+<div class="max-w-6xl mx-auto space-y-10 animate-fade-in">
+  <div class="relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 rounded-3xl shadow-premium p-8 lg:p-12 text-white">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
+    <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2 tracking-tight">Admin Dashboard</h1>
+        <p class="text-slate-300 text-lg">Overview of your RecipeHub platform.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/admin/" class="btn btn-secondary btn-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          Django Admin
+        </a>
+        <a href="{% url 'recipes:recipe_list' %}" class="btn btn-outline btn-lg border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" /></svg>
+          Manage Recipes
+        </a>
+        <a href="/admin/users/customuser/" class="btn btn-outline btn-lg border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 hidden sm:flex">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.222.549c.76.134 1.522.234 2.288.3a9.037 9.037 0 003.824-1.208 9.053 9.053 0 002.222-2.222c.69-.93 1.186-1.953 1.49-3.034a9.037 9.037 0 00.3-3.824 9.037 9.037 0 00-1.208-3.824 9.053 9.053 0 00-2.222-2.222c-.93-.69-1.953-1.186-3.034-1.49a9.037 9.037 0 00-3.824-.3 9.037 9.037 0 00-3.824 1.208 9.053 9.053 0 00-2.222 2.222c-.69.93-1.186 1.953-1.49 3.034a9.037 9.037 0 00-.3 3.824 9.037 9.037 0 001.208 3.824 9.053 9.053 0 002.222 2.222c.93.69 1.953 1.186 3.034 1.49a9.037 9.037 0 003.824.3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          Manage Users
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-premium border border-slate-200/80 dark:border-slate-700 p-8 hover:shadow-premium-hover hover:-translate-y-0.5 transition-all duration-300">
+      <div class="flex items-center gap-5">
+        <div class="p-4 bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/20 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.222.549c.76.134 1.522.234 2.288.3a9.037 9.037 0 003.824-1.208 9.053 9.053 0 002.222-2.222c.69-.93 1.186-1.953 1.49-3.034a9.037 9.037 0 00.3-3.824 9.037 9.037 0 00-1.208-3.824 9.053 9.053 0 00-2.222-2.222c-.93-.69-1.953-1.186-3.034-1.49a9.037 9.037 0 00-3.824-.3 9.037 9.037 0 00-3.824 1.208 9.053 9.053 0 00-2.222 2.222c-.69.93-1.186 1.953-1.49 3.034a9.037 9.037 0 00-.3 3.824 9.037 9.037 0 001.208 3.824 9.053 9.053 0 002.222 2.222c.93.69 1.953 1.186 3.034 1.49a9.037 9.037 0 003.824.3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-slate-900 dark:text-white">{{ total_users }}</p>
+          <p class="text-slate-500 dark:text-slate-400 font-medium">Total Users</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-premium border border-slate-200/80 dark:border-slate-700 p-8 hover:shadow-premium-hover hover:-translate-y-0.5 transition-all duration-300">
+      <div class="flex items-center gap-5">
+        <div class="p-4 bg-orange-50 dark:bg-orange-500/10 rounded-2xl text-orange-500 dark:text-orange-400 group-hover:bg-orange-100 dark:group-hover:bg-orange-500/20 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A9 9 0 006 18c1.119 0 2.19-.22 3.182-.635m0 0A8.966 8.966 8.966 0 0112 21a8.966 8.966 8.966 0 01-8.182-5.635M12 6.042A8.967 8.967 0 0112 3c1.052 0 2.062.18 3 .512v14.25A9 9 0 0018 18c-1.119 0-2.19-.22 3.182-.635m0 0A8.966 8.966 8.966 0 0012 21" /></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-slate-900 dark:text-white">{{ total_recipes }}</p>
+          <p class="text-slate-500 dark:text-slate-400 font-medium">Total Recipes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-premium border border-slate-200/80 dark:border-slate-700 p-8 hover:shadow-premium-hover hover:-translate-y-0.5 transition-all duration-300">
+      <div class="flex items-center gap-5">
+        <div class="p-4 bg-pink-50 dark:bg-pink-500/10 rounded-2xl text-pink-500 dark:text-pink-400 group-hover:bg-pink-100 dark:group-hover:bg-pink-500/20 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-slate-900 dark:text-white">{{ total_favourites }}</p>
+          <p class="text-slate-500 dark:text-slate-400 font-medium">Total Favourites</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-premium border border-slate-200/80 dark:border-slate-700 p-8 lg:p-10">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Recently Added Recipes</h2>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-0.5">The latest recipes from the community</p>
+        </div>
+        <a href="{% url 'recipes:recipe_list' %}" class="btn btn-ghost btn-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-full">View All</a>
+      </div>
+      {% if recent_recipes %}
+      <div class="space-y-3">
+        {% for recipe in recent_recipes %}
+        <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="flex items-center justify-between p-5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-colors border border-slate-100 dark:border-slate-600 hover:border-slate-200 dark:hover:border-slate-500 group">
+          <div class="min-w-0 flex-1">
+            <p class="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors truncate">{{ recipe.title }}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">by {{ recipe.author.get_display_name }}</p>
+          </div>
+          <span class="text-xs text-slate-400 dark:text-slate-500 ml-4 shrink-0">{{ recipe.created_at|date:"M d, Y" }}</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-10">
+        <p class="text-slate-500 dark:text-slate-400">No recipes yet.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-premium border border-slate-200/80 dark:border-slate-700 p-8 lg:p-10">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Recently Registered Users</h2>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-0.5">New members joining RecipeHub</p>
+        </div>
+        <a href="/admin/users/customuser/" class="btn btn-ghost btn-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-full">Manage Users</a>
+      </div>
+      {% if recent_users %}
+      <div class="space-y-3">
+        {% for user in recent_users %}
+        <div class="flex items-center justify-between p-5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-colors border border-slate-100 dark:border-slate-600">
+          <div class="flex items-center gap-4">
+            <div class="avatar placeholder">
+              <div class="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-full w-12 h-12 flex items-center justify-center font-semibold text-sm">
+                <span>{{ user.get_display_name|first|upper }}</span>
+              </div>
+            </div>
+            <div class="min-w-0">
+              <p class="font-semibold text-slate-900 dark:text-slate-100 truncate">{{ user.get_display_name }}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 truncate">{{ user.email }}</p>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 dark:text-slate-500 ml-4 shrink-0">{{ user.date_joined|date:"M d, Y" }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-10">
+        <p class="text-slate-500 dark:text-slate-400">No users yet.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

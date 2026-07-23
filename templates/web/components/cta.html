@@ -1,12 +1,28 @@
 {% load i18n %}
-<section class="px-4 py-16">
-  <div class="mx-auto max-w-(--breakpoint-xl) card bg-base-200">
-    <div class="items-center gap-6 text-center card-body lg:flex-row lg:justify-between lg:text-left">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Ready to dive in?</h2>
-        <p class="text-base-content/70">Get your first customer in minutes.</p>
-      </div>
-      <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">{% translate "Get started" %}</a>
+<section class="relative py-24 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-r from-emerald-500/20 to-orange-500/20 blur-3xl rounded-full"></div>
+
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight">
+      Ready to start cooking?
+    </h2>
+    <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+      Join thousands of home cooks sharing their favorite recipes every day. Start your culinary journey today.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'recipes:recipe_list' %}" class="btn btn-primary btn-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 text-base font-semibold rounded-full">
+        Browse Recipes
+      </a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'recipes:create_recipe' %}" class="btn btn-outline btn-lg px-8 py-4 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 text-base font-semibold rounded-full">
+        Share a Recipe
+      </a>
+      {% else %}
+      <a href="{% url 'account_signup' %}" class="btn btn-outline btn-lg px-8 py-4 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 text-base font-semibold rounded-full">
+        Get Started
+      </a>
+      {% endif %}
     </div>
   </div>
 </section>

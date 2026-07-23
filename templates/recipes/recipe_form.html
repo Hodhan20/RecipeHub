@@ -1,0 +1,91 @@
+{% extends "web/base.html" %}
+
+{% block body %}
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 py-10 md:py-14">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-premium border border-slate-200/80 dark:border-slate-700 overflow-hidden">
+      <div class="p-8 md:p-12">
+        <div class="mb-10">
+          <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">{{ title|default:"Share a Recipe" }}</h1>
+          <p class="text-slate-500 dark:text-slate-400 text-lg">Fill in the details below to share your recipe with the community.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-7">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+          <div class="alert alert-error shadow-sm">
+            {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Recipe Title</span></label>
+            {{ form.title }}
+            {% if form.title.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.title.errors|first }}</span></label>
+            {% endif %}
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Category</span></label>
+            {{ form.category }}
+            {% if form.category.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.category.errors|first }}</span></label>
+            {% endif %}
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Description</span></label>
+            {{ form.description }}
+            {% if form.description.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.description.errors|first }}</span></label>
+            {% endif %}
+            <label class="label"><span class="label-text-alt text-slate-400 dark:text-slate-500">Tell others about your recipe in a few sentences.</span></label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Ingredients</span></label>
+            {{ form.ingredients }}
+            {% if form.ingredients.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.ingredients.errors|first }}</span></label>
+            {% endif %}
+            <label class="label"><span class="label-text-alt text-slate-400 dark:text-slate-500">List each ingredient on a new line.</span></label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Instructions</span></label>
+            {{ form.instructions }}
+            {% if form.instructions.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.instructions.errors|first }}</span></label>
+            {% endif %}
+            <label class="label"><span class="label-text-alt text-slate-400 dark:text-slate-500">Step-by-step cooking instructions.</span></label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label mb-2.5"><span class="label-text font-semibold text-slate-700 dark:text-slate-200">Recipe Image</span></label>
+            {{ form.image }}
+            {% if form.image.errors %}
+            <label class="label mt-1.5"><span class="label-text-alt text-error">{{ form.image.errors|first }}</span></label>
+            {% endif %}
+            {% if recipe and recipe.image %}
+            <div class="mt-5">
+              <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="h-44 w-auto rounded-2xl object-cover border border-slate-200 dark:border-slate-700">
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="flex flex-col-reverse sm:flex-row gap-4 pt-8 border-t border-slate-100 dark:border-slate-700">
+            <a href="{% url 'recipes:recipe_list' %}" class="btn btn-ghost btn-lg text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg flex-1 sm:flex-none shadow-md hover:shadow-lg rounded-full">
+              {% if recipe %}Update Recipe{% else %}Save Recipe{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

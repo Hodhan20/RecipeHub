@@ -1,19 +1,19 @@
 {% load i18n %}
 {% load static %}
-<section class="hero">
-  <div class="hero-content flex-col gap-10 px-4 py-16 mx-auto max-w-(--breakpoint-xl) lg:flex-row-reverse lg:py-24">
-    <img src="{% static 'images/web/rocket-laptop.svg' %}" alt="{% translate "Fly Away!" %}"
-         class="hidden w-full max-w-sm lg:block">
+<section class="hero bg-primary text-primary-content">
+  <div class="hero-content flex-col gap-10 px-4 py-16 mx-auto max-w-6xl lg:flex-row-reverse lg:py-24">
+    <img src="{% static 'images/recipes/R1.jpg' %}" alt="Delicious food"
+         class="hidden w-full max-w-sm lg:block rounded-2xl shadow-2xl object-cover aspect-square">
     <div class="max-w-xl">
       <h1 class="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
         {{ project_meta.NAME }}
       </h1>
-      <p class="py-6 text-lg text-base-content/70">
-        {{ project_meta.DESCRIPTION }}
+      <p class="py-6 text-lg text-primary-content/90">
+        Discover and share amazing recipes from around the world.
       </p>
       <div class="flex flex-col gap-3 sm:flex-row">
-        <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">{% translate "Get started" %}</a>
-        <a href="{% url 'account_login' %}" class="btn btn-lg">{% translate "Sign in" %}</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-secondary btn-lg">Get Started</a>
+        <a href="{% url 'recipes:recipe_list' %}" class="btn btn-outline btn-lg border-white/30 text-white hover:bg-white/10">Browse Recipes</a>
       </div>
     </div>
   </div>

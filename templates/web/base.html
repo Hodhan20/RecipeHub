@@ -38,22 +38,46 @@
 {% endif %}
 {% endblock meta %}
 {% include 'web/components/favicon.html' %}
+    <link rel="manifest" href="{% static 'images/favicons/site.webmanifest' %}">
+    <meta name="theme-color" content="#10b981">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% vite_asset_url 'assets/styles/site-base.css' %}">
     <link rel="stylesheet" href="{% vite_asset_url 'assets/styles/site-tailwind.css' %}">
 
     {% if GOOGLE_ANALYTICS_ID %}
         {% include 'web/components/google_analytics.html' %}
     {% endif %}
-    {% vite_asset 'assets/javascript/site.js' %}
-    {% vite_hmr_client %}
-    <script>__cssFramework = 'tailwind';</script>
-    {% block page_head %}
+  {% vite_asset 'assets/javascript/site.js' %}
+  {% vite_hmr_client %}
+  <script>__cssFramework = 'tailwind';</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('{% static "js/sw.js" %}').catch(function(err) {
+          console.log('SW registration failed:', err);
+        });
+      });
+    }
+  </script>
+  {% block page_head %}
     {% endblock %}
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.setAttribute('data-theme', 'dark');
+        html.classList.add('dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        html.classList.remove('dark');
+      }
+    })();
+  </script>
 </head>
-<body class="bg-base-100" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 antialiased pt-20 lg:pt-24" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }">
 {% block body_wrapper %}
 {% block top_nav %}
   {% include 'web/components/top_nav.html' %}

@@ -1,0 +1,62 @@
+{% extends "web/base.html" %}
+
+{% block body %}
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900">
+  <div class="bg-white dark:bg-slate-800 border-b border-slate-200/80 dark:border-slate-700">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-20">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">My Favourites</h1>
+        <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">Recipes you've saved for later cooking inspiration.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    {% if recipes %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      {% for recipe in recipes %}
+      <div class="group bg-white dark:bg-slate-800 rounded-3xl shadow-premium border border-slate-200/80 dark:border-slate-700 overflow-hidden hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-500">
+        <figure class="relative h-52 overflow-hidden bg-slate-100 dark:bg-slate-700">
+          {% if recipe.image %}
+          <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          {% else %}
+          <img src="/static/images/recipes/R1.jpg" alt="{{ recipe.title }}" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
+          {% endif %}
+          <div class="absolute top-4 left-4">
+            <span class="badge badge-primary badge-outline bg-white/90 backdrop-blur-sm border-0 shadow-sm">{{ recipe.get_category_display }}</span>
+          </div>
+        </figure>
+        <div class="p-6">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+            <a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+          </h2>
+          <p class="text-slate-500 dark:text-slate-400 text-sm line-clamp-2 mb-5">{{ recipe.description|truncatewords:25 }}</p>
+          <div class="flex items-center justify-between pt-5 border-t border-slate-100 dark:border-slate-700">
+            <div class="flex items-center gap-3">
+              <div class="avatar placeholder">
+                <div class="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-full w-8 h-8 flex items-center justify-center text-xs font-semibold">
+                  <span>{{ recipe.author.get_display_name|first|upper }}</span>
+                </div>
+              </div>
+              <span class="text-sm text-slate-600 dark:text-slate-300">{{ recipe.author.get_display_name|truncatewords:1 }}</span>
+            </div>
+            <span class="text-xs text-slate-400 dark:text-slate-500">{{ recipe.created_at|date:"M d, Y" }}</span>
+          </div>
+          <div class="card-actions justify-end items-center mt-5">
+            <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="btn btn-primary btn-sm shadow-sm hover:shadow-md">View Recipe</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-24">
+      <div class="text-7xl mb-6">💝</div>
+      <h2 class="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-3">No favourites yet</h2>
+      <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">Explore recipes and add your favourites here to build your personal collection of go-to meals.</p>
+      <a href="{% url 'recipes:recipe_list' %}" class="btn btn-primary btn-lg shadow-md hover:shadow-lg">Browse Recipes</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

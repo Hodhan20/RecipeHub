@@ -4,6 +4,7 @@ from allauth.account import app_settings
 from allauth.account.models import EmailAddress
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 
 
