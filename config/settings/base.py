@@ -346,7 +346,10 @@ SPECTACULAR_SETTINGS = {
 }
 # Redis, cache, and/or Celery setup
 # `or` treats an empty REDIS_URL as unset so it falls back instead of yielding an empty URL
-REDIS_URL = env("REDIS_URL", default=None) or env("REDIS_TLS_URL", default=None)
+# Track whether a *real* Redis URL was actually provided, as opposed to the
+# localhost fallback below (which only matters for local dev / docker-compose).
+_EXPLICIT_REDIS_URL = env("REDIS_URL", default=None) or env("REDIS_TLS_URL", default=None)
+REDIS_URL = _EXPLICIT_REDIS_URL
 if not REDIS_URL:
     REDIS_HOST = env("REDIS_HOST", default="localhost")
     REDIS_PORT = env("REDIS_PORT", default="6379")
@@ -355,12 +358,28 @@ if not REDIS_URL:
 DUMMY_CACHE = {
     "BACKEND": "django.core.cache.backends.dummy.DummyCache",
 }
+LOCMEM_CACHE = {
+    "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+}
 REDIS_CACHE = {
     "BACKEND": "django.core.cache.backends.redis.RedisCache",
     "LOCATION": REDIS_URL,
 }
+if DEBUG:
+    _DEFAULT_CACHE = DUMMY_CACHE
+elif _EXPLICIT_REDIS_URL:
+    _DEFAULT_CACHE = REDIS_CACHE
+else:
+    # Production but no real Redis configured (e.g. Render free tier without a
+    # Redis add-on): use Django's per-process in-memory cache instead of
+    # crashing when it tries to reach the unreachable localhost:6379 fallback.
+    # Note this cache is NOT shared across gunicorn workers/dynos - fine for
+    # rate-limiting on a single instance, but set a real REDIS_URL once you
+    # scale to multiple workers/instances or need a shared cache.
+    _DEFAULT_CACHE = LOCMEM_CACHE
+
 CACHES = {
-    "default": DUMMY_CACHE if DEBUG else REDIS_CACHE,
+    "default": _DEFAULT_CACHE,
 }
 
 CELERY_BROKER_URL = CELERY_RESULT_BACKEND = REDIS_URL
